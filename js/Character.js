@@ -1,6 +1,6 @@
-import { Position } from './Position';
-import { MathUtil } from './MathUtil';
-import { Vector } from './Vector';
+import { Position } from './Position.js';
+import { MathUtil } from './MathUtil.js';
+import { Vector } from './Vector.js';
 
 export class Character {
   constructor(width, height){
@@ -8,11 +8,9 @@ export class Character {
     this.height = height;
     this.position = new Position(-1, -1);
 
-    const initVector = {
-      radian: MathUtil.random(Math.PI * 2),
-      size: MathUtil.random(10),
-    };
-    this.vector = new Vector(initVector.radian, initVector.size);
+    const initRadian = MathUtil.random(Math.PI * 2)
+    const initSize = MathUtil.random(50) / 10;
+    this.vector = new Vector(initRadian, initSize);
 
     this.color = 'black';
   }
@@ -30,7 +28,22 @@ export class Character {
     let x = this.position.x + this.vector.x;
     let y = this.position.y + this.vector.y;
 
-    
+    // 境界から出たら位置とベクトルをその軸に対して反転させる
+    const width = info.world.width;
+    if (x < 0 || width < x) {
+      // 位置の反転
+      x = (width - (x % width)) % width;
+      // ベクトルの反転
+      this.vector.x *= -1;
+    }
+
+    const height = info.world.height;
+    if (y < 0 || height < y) {
+      // 位置の反転
+      y = (height - (y % height)) % height;
+      // ベクトルの反転
+      this.vector.y *= -1;
+    }
 
     this.moveTo(x, y);
   }

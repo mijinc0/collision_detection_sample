@@ -11,8 +11,8 @@ export class World {
       (character) => {};
   }
 
-  addCharacter(char) {
-    this.characters.push(char);
+  addCharacters(chars) {
+    this.characters.push(...chars);
   }
 
   update(info) {
@@ -22,7 +22,7 @@ export class World {
     });
 
     // collision detection
-    this.this.collisionDetector(this.character);
+    this.collisionDetector(this.character);
   }
 
   render(ctx, time) {
