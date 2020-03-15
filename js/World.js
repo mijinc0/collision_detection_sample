@@ -22,7 +22,7 @@ export class World {
     });
 
     // collision detection
-    this.collisionDetector(this.character);
+    this.collisionDetector(this.characters);
   }
 
   render(ctx, time) {

@@ -1,4 +1,5 @@
 import { Character } from './Character.js';
+import { RoundrobinCollisionDetector } from './RoundrobinCollisionDetector.js';
 import { MathUtil } from './MathUtil.js';
 import { World } from './World.js';
 
@@ -12,7 +13,7 @@ canvas.height = CANVAS_HEIGHT;
 const ctx = canvas.getContext('2d');
 
 // Characters
-const cellSize = 100;
+const cellSize = 700;
 const cells = [];
 for (let k = 0; k < cellSize; k++) {
   const character = new Character(10, 10);
@@ -23,7 +24,10 @@ for (let k = 0; k < cellSize; k++) {
 }
 
 // world
-const worldOption = {};
+const collisionDetector = new RoundrobinCollisionDetector();
+const worldOption = {
+  collisionDetector: collisionDetector.test.bind(collisionDetector),
+};
 const world = new World(CANVAS_WIDTH, CANVAS_HEIGHT, worldOption);
 world.addCharacters(cells);
 

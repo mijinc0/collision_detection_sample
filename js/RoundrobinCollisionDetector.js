@@ -1,14 +1,22 @@
+import { StopWatch } from './StopWatch.js';
+
 export class RoundrobinCollisionDetector {
+  constructor() {
+    this.stopWatch = new StopWatch(); 
+  }
+
   test(characters) {
+    this.stopWatch.start();
     for (let k = 0; k < characters.length; k++) {
-      for (let j = k; j < characters.length; j++) {
-        const result = this._isCollision(k, j);
+      for (let j = (k + 1); j < characters.length; j++) {
+        const result = this._isCollision(characters[k], characters[j]);
         if (result) {
           characters[k].collision(j);
           characters[j].collision(k);
         }
       }
     }
+    this.stopWatch.stop();
   }
 
   _isCollision(charA, charB) {
@@ -25,6 +33,6 @@ export class RoundrobinCollisionDetector {
    * @param {number} eB  charB end position
    */
   _isOverlap(sA, eA, sB, eB) {
-    return (sA <= sB && sB <= eA) || (sA <= bE && eB <= eA);
+    return (sA <= sB && sB <= eA) || (sA <= eB && eB <= eA);
   }
 }

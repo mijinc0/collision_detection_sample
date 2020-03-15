@@ -58,7 +58,43 @@ export class Character {
     );
   }
 
-  collision(obj) {; 
+  collision(obj) {
     this.color = 'red';
+  }
+
+  get x() {
+    return this.position.x;
+  }
+
+  get y() {
+    return this.position.y;
+  }
+
+  get topL() {
+    return new Position(
+      this.position.x,
+      this.position.y,
+    );
+  }
+
+  get topR() {
+    return new Position(
+      this.position.x + this.width,
+      this.position.y,
+    );
+  }
+
+  get bottomL() {
+    return new Position(
+      this.position.x,
+      this.position.y + this.height,
+    );
+  }
+
+  get bottomR() {
+    return new Position(
+      this.position.x + this.width,
+      this.position.y + this.height,
+    );
   }
 }
