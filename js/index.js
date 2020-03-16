@@ -1,5 +1,6 @@
 import { Character } from './Character.js';
 import { RoundrobinCollisionDetector } from './RoundrobinCollisionDetector.js';
+import { QuadTreeCollisionDetector } from './QuadTreeCollisionDetector/QuadTreeCollisionDetector.js';
 import { MathUtil } from './MathUtil.js';
 import { World } from './World.js';
 
@@ -13,7 +14,7 @@ canvas.height = CANVAS_HEIGHT;
 const ctx = canvas.getContext('2d');
 
 // Characters
-const cellSize = 700;
+const cellSize = 1000;
 const cells = [];
 for (let k = 0; k < cellSize; k++) {
   const character = new Character(10, 10);
@@ -24,7 +25,8 @@ for (let k = 0; k < cellSize; k++) {
 }
 
 // world
-const collisionDetector = new RoundrobinCollisionDetector();
+const collisionDetector = new QuadTreeCollisionDetector(CANVAS_WIDTH, CANVAS_HEIGHT, 2);
+//const collisionDetector = new RoundrobinCollisionDetector();
 const worldOption = {
   collisionDetector: collisionDetector.test.bind(collisionDetector),
 };
@@ -36,11 +38,11 @@ const updateInfo = {
   time: 0,
 };
 
+
 // main roop part
 function update(updateInfo) {
   // update world
   world.update(updateInfo);
-
   // rendering
   world.render(ctx, updateInfo.time);
   

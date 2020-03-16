@@ -1,3 +1,5 @@
+import { StopWatch } from './StopWatch.js';
+
 export class World {
   constructor(width, height, option) {
     this.width = width;
@@ -9,6 +11,8 @@ export class World {
     this.collisionDetector = option.collisionDetector ?
       option.collisionDetector :
       (character) => {};
+
+    this.stopWatch = new StopWatch();
   }
 
   addCharacters(chars) {
@@ -22,7 +26,9 @@ export class World {
     });
 
     // collision detection
+    this.stopWatch.start();
     this.collisionDetector(this.characters);
+    this.stopWatch.stop();
   }
 
   render(ctx, time) {
